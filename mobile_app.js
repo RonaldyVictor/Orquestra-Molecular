@@ -519,26 +519,28 @@ function renderScore() {
         return;
     }
 
-    // Ensure content area is visible when a note is played
-    content.classList.remove('collapsed');
-    document.getElementById('toggle-icon').classList.remove('rotated');
-
     const abcString = generateABCString();
     if (!abcString) return;
 
-    try {
-        ABCJS.renderAbc("abc-render", abcString, {
-            responsive: "resize",
-            staffwidth: 280,
-        });
-    } catch (err) {
-        console.warn('Erro ao renderizar partitura:', err);
-        // Fallback: reset timeline if score breaks
-        if (AppState.timeline.length > 50) {
-            AppState.timeline = AppState.timeline.slice(-20);
-            renderScore();
+    // Make sure the container is visible BEFORE rendering
+    content.classList.remove('collapsed');
+    document.getElementById('toggle-icon').classList.remove('rotated');
+
+    // Wait for the DOM to update dimensions, then render ABC
+    setTimeout(() => {
+        try {
+            ABCJS.renderAbc("abc-render", abcString, {
+                responsive: "resize",
+                staffwidth: 280,
+            });
+        } catch (err) {
+            console.warn('Erro ao renderizar partitura:', err);
+            if (AppState.timeline.length > 50) {
+                AppState.timeline = AppState.timeline.slice(-20);
+                renderScore();
+            }
         }
-    }
+    }, 60);
 }
 
 function generateABCString() {

@@ -371,22 +371,19 @@ body::before {
 .score-content {
     flex-shrink: 0;
     background: #fff;
-    overflow: hidden;
-    transition: max-height var(--transition-normal) ease;
-    max-height: 160px;
     border-bottom: 1px solid var(--border-glass);
 }
 
 .score-content.collapsed {
-    max-height: 0;
-    border-bottom: none;
+    display: none;
 }
 
 #abc-render {
-    padding: 6px 10px;
-    min-height: 90px;
+    padding: 8px 10px;
+    min-height: 100px;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
+    max-height: 150px;
 }
 
 /* ====================== MODE GRID ====================== */
