@@ -143,7 +143,8 @@ body::before {
     width: 100%;
     min-height: 80px;
 }
-#abc-render svg { width: 100% !important; }
+#abc-render svg { width: 100% !important; fill: #000 !important; color: #000 !important; }
+#abc-render { color: #000; }
 
 /* MODE GRID */
 .modes-panel { flex: 1; display: flex; flex-direction: column; min-height: 0; background: rgba(16,6,32,0.6); }

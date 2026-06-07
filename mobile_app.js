@@ -291,14 +291,16 @@ function freqToAbcNote(freq) {
     const fMapped = Math.max(50, Math.min(absFreq, 4000));
     const midi = Math.round(36 + (Math.log(fMapped/50) / Math.log(4000/50)) * (108-36));
     const safe = Math.max(48, Math.min(midi, 83));
-    const names = ['C','_D','D','_E','E','F','_G','G','_A','A','_B','B'];
+    const names = ['C','^C','D','^D','E','F','^F','G','^G','A','^A','B'];
     const name = names[safe % 12];
     const oct = Math.floor(safe / 12) - 1;
+    const isSharp = name.startsWith('^');
+    const letter = isSharp ? name[1] : name;
+    const prefix = isSharp ? '^' : '';
     if (oct <= 3) {
-        return name + (oct < 3 ? ','.repeat(3 - oct) : '');
+        return prefix + letter + (oct < 3 ? ','.repeat(3 - oct) : '');
     } else {
-        const base = name.length > 1 ? name[0] + name[1].toLowerCase() : name.toLowerCase();
-        return base + (oct > 4 ? "'".repeat(Math.min(oct - 4, 2)) : '');
+        return prefix + letter.toLowerCase() + (oct > 4 ? "'".repeat(Math.min(oct - 4, 2)) : '');
     }
 }
 
