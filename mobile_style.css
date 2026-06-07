@@ -341,44 +341,50 @@ body::before {
     height: 100%;
 }
 
-/* Score panel */
-.score-panel {
-    flex-shrink: 0;
-    background: rgba(255, 255, 255, 0.97);
-    border-bottom: 1px solid var(--border-glass);
-    overflow: hidden;
-    transition: max-height var(--transition-normal);
-    max-height: 140px;
-}
-
-.score-panel.collapsed {
-    max-height: 0;
-}
-
+/* Score header — always visible, acts as toggle */
 .score-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 16px;
-    background: rgba(45, 17, 80, 0.9);
+    padding: 8px 16px;
+    background: rgba(45, 17, 80, 0.95);
     color: var(--text-primary);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     user-select: none;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border-glass);
+    z-index: 5;
 }
 
 .score-header .toggle-icon {
-    transition: transform var(--transition-fast);
+    transition: transform var(--transition-normal);
+    font-size: 0.7rem;
 }
 
-.score-panel.collapsed .toggle-icon {
+.score-header .toggle-icon.rotated {
     transform: rotate(180deg);
 }
 
+/* Score content — collapsible ABC render area */
+.score-content {
+    flex-shrink: 0;
+    background: #fff;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease;
+    max-height: 160px;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.score-content.collapsed {
+    max-height: 0;
+    border-bottom: none;
+}
+
 #abc-render {
-    padding: 4px 8px;
-    min-height: 80px;
+    padding: 6px 10px;
+    min-height: 90px;
     overflow-x: auto;
     overflow-y: hidden;
 }

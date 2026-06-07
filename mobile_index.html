@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Orquestra Molecular — Visualize e ouça os modos vibracionais de moléculas em 3D">
+    <title>Orquestra Molecular</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="mobile_style.css">
+
+    <!-- 3Dmol.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.1/3Dmol-min.js"></script>
+    <!-- ABC.js for score rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/abcjs/6.2.2/abcjs-basic-min.js"></script>
+</head>
+<body>
+
+    <!-- =============== LOADING OVERLAY =============== -->
+    <div class="loader-overlay" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text" id="loader-text">Carregando moléculas...</div>
+    </div>
+
+    <!-- =============== SCREEN 1 — MOLECULE SELECTION =============== -->
+    <div class="screen visible" id="screen-select">
+
+        <!-- Floating particles decoration -->
+        <div class="floating-atoms" id="floating-atoms"></div>
+
+        <div class="title-block">
+            <h1>Orquestra<br>Molecular</h1>
+        </div>
+
+        <div class="select-wrapper">
+            <select id="mol-select">
+                <option value="" disabled selected>ESCOLHA A MOLÉCULA</option>
+            </select>
+        </div>
+
+        <button class="btn-primary" id="btn-select" disabled>
+            <span>SELECIONAR</span>
+        </button>
+    </div>
+
+    <!-- =============== SCREEN 2 — MOLECULE VIEWER =============== -->
+    <div class="screen hidden" id="screen-viewer">
+
+        <!-- Top bar -->
+        <div class="viewer-topbar">
+            <button class="btn-back" id="btn-back">
+                ← Voltar
+            </button>
+            <div class="mol-name" id="viewer-mol-name">—</div>
+        </div>
+
+        <!-- 3D Viewer -->
+        <div class="viewer-3d-container">
+            <div id="mol-viewer"></div>
+        </div>
+
+        <!-- Score panel -->
+        <div class="score-header" id="score-header">
+            <span>🎼 Partitura</span>
+            <span class="toggle-icon" id="toggle-icon">▼</span>
+        </div>
+        <div class="score-content" id="score-content">
+            <div id="abc-render"></div>
+        </div>
+
+        <!-- Vibrational modes grid -->
+        <div class="modes-panel">
+            <div class="modes-header">
+                <h3>Modos Vibracionais</h3>
+                <span class="modes-count" id="modes-count">0 modos</span>
+            </div>
+            <div class="modes-grid-wrapper">
+                <div class="modes-grid" id="modes-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Logic -->
+    <script src="mobile_app.js"></script>
+
+</body>
+</html>

@@ -512,15 +512,16 @@ function addNoteToTimeline(modeIndex, freq) {
 
 function renderScore() {
     const container = document.getElementById('abc-render');
-    const panel = document.getElementById('score-panel');
+    const content = document.getElementById('score-content');
 
     if (AppState.timeline.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#999;font-size:0.8rem;padding:12px;">Toque um modo para ver a nota aqui</p>';
         return;
     }
 
-    // Ensure panel is visible
-    panel.classList.remove('collapsed');
+    // Ensure content area is visible when a note is played
+    content.classList.remove('collapsed');
+    document.getElementById('toggle-icon').classList.remove('rotated');
 
     const abcString = generateABCString();
     if (!abcString) return;
@@ -528,7 +529,7 @@ function renderScore() {
     try {
         ABCJS.renderAbc("abc-render", abcString, {
             responsive: "resize",
-            staffwidth: 300,
+            staffwidth: 280,
         });
     } catch (err) {
         console.warn('Erro ao renderizar partitura:', err);
@@ -605,6 +606,9 @@ function generateABCString() {
 // SCORE PANEL TOGGLE
 // ============================================================
 function toggleScorePanel() {
-    const panel = document.getElementById('score-panel');
-    panel.classList.toggle('collapsed');
+    const content = document.getElementById('score-content');
+    const icon = document.getElementById('toggle-icon');
+    content.classList.toggle('collapsed');
+    icon.classList.toggle('rotated');
 }
+
