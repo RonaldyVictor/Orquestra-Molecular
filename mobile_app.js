@@ -297,10 +297,18 @@ function freqToAbcNote(freq) {
     const isSharp = name.startsWith('^');
     const letter = isSharp ? name[1] : name;
     const prefix = isSharp ? '^' : '';
+    let abcBaseNote = "";
     if (oct <= 3) {
-        return prefix + letter + (oct < 3 ? ','.repeat(3 - oct) : '');
+        abcBaseNote = prefix + letter + (oct < 3 ? ','.repeat(3 - oct) : '');
     } else {
-        return prefix + letter.toLowerCase() + (oct > 4 ? "'".repeat(Math.min(oct - 4, 2)) : '');
+        abcBaseNote = prefix + letter.toLowerCase() + (oct > 4 ? "'".repeat(Math.min(oct - 4, 2)) : '');
+    }
+    
+    const residuo = absFreq % 100;
+    if (residuo > 20) {
+        return "!trill!!ff!" + abcBaseNote;
+    } else {
+        return "!p!" + abcBaseNote;
     }
 }
 
